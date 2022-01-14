@@ -10,7 +10,7 @@ function App() {
     )
 }
 
-function PokemonSearch({ pokemon }) {
+function PokemonSearch() {
     const queryInfo = useQuery("pokemon", async () => {
         await new Promise((resolve) => setTimeout(resolve, 1000))
         // return axios
