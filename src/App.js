@@ -11,7 +11,7 @@ function App() {
     console.log(queryInfo.isSuccess)
 
     return (
-        <div className="App">
+        <div>
             {queryInfo.data?.map((pokemon) => (
                 <div key={pokemon.name}>{pokemon.name}</div>
             ))}
