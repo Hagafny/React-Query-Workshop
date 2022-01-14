@@ -4,9 +4,17 @@ import axios from "axios"
 import { FETCH_POKEMON_URL } from "./consts"
 
 function App() {
+    const [showList, setShowList] = React.useState(true)
+
+    const togglePokemonList = () => setShowList(!showList)
+
     return (
         <div>
-            <PokemonList />
+            <button onClick={togglePokemonList}>
+                {showList ? "Hide" : "Show"}
+            </button>
+            <br />
+            {showList ? <PokemonList /> : null}
         </div>
     )
 }
