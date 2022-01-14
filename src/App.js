@@ -23,8 +23,14 @@ function PokemonSearch() {
     ) : queryInfo.isError ? (
         queryInfo.error.message
     ) : (
-        <div>Show the pokemon</div>
+        <div>
+            Show the pokemon
+            <br />
+            {queryInfo.isFetching ? "Updating..." : null}
+        </div>
     )
 }
 
 export default App
+
+// <img src={queryInfo.data.sprites.front_default} alt="pokemon" />
