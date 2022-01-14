@@ -4,26 +4,28 @@ import axios from "axios"
 import { FETCH_POKEMON_URL } from "./consts"
 
 function App() {
-    const [showList, setShowList] = React.useState(true)
-
-    const togglePokemonList = () => setShowList(!showList)
-
     return (
         <div>
-            <button onClick={togglePokemonList}>
-                {showList ? "Hide" : "Show"}
-            </button>
-            <br />
-            {showList ? <PokemonList /> : null}
+            <Count />
+            <PokemonList queryKey="pokemon" />
         </div>
     )
 }
 
-function PokemonList() {
-    const queryInfo = useQuery("pokemon", async () => {
+function Count() {
+    const queryInfo = usePokemon()
+    return <h3>You are looking at {queryInfo.data?.length} pokemon</h3>
+}
+
+function usePokemon() {
+    return useQuery("pokemon", async () => {
         await new Promise((resolve) => setTimeout(resolve, 1000))
         return axios.get(FETCH_POKEMON_URL).then((res) => res.data.results)
     })
+}
+
+function PokemonList() {
+    const queryInfo = usePokemon()
 
     return queryInfo.isLoading ? (
         "Loading..."
