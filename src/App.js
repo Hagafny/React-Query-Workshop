@@ -8,11 +8,13 @@ function App() {
         axios.get(FETCH_POKEMON_URL).then((res) => res.data.results)
     )
 
-    console.log(queryInfo)
+    console.log(queryInfo.isSuccess)
 
     return (
         <div className="App">
-            <h1>Hello, React Query</h1>
+            {queryInfo.data?.map((pokemon) => (
+                <div key={pokemon.name}>{pokemon.name}</div>
+            ))}
         </div>
     )
 }
