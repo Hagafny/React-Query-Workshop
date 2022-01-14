@@ -17,10 +17,6 @@ function App() {
             {queryInfo.data.map((pokemon) => (
                 <div key={pokemon.name}>{pokemon.name}</div>
             ))}
-
-            <br />
-
-            {queryInfo.isFetching ? "Updating" : null}
         </div>
     )
 }
