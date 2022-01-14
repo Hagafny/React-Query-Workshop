@@ -13,9 +13,9 @@ function App() {
 function PokemonSearch({ pokemon }) {
     const queryInfo = useQuery("pokemon", async () => {
         await new Promise((resolve) => setTimeout(resolve, 1000))
-        return axios
-            .get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
-            .then((res) => res.data.results)
+        // return axios
+        //     .get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+        //     .then((res) => res.data.results)
     })
 
     return queryInfo.isLoading ? (
