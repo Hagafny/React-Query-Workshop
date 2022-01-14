@@ -10,6 +10,8 @@ function App() {
 
     return queryInfo.isLoading ? (
         "Loading..."
+    ) : queryInfo.isError ? (
+        queryInfo.error.message
     ) : (
         <div>
             {queryInfo.data.map((pokemon) => (
