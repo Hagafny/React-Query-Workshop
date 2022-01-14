@@ -23,7 +23,7 @@ function PokemonSearch({ pokemon }) {
     ) : queryInfo.isError ? (
         queryInfo.error.message
     ) : (
-        <div> Show the pokemon</div>
+        <div>Show the pokemon</div>
     )
 }
 
