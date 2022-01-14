@@ -15,7 +15,7 @@ function PokemonSearch() {
         await new Promise((resolve) => setTimeout(resolve, 1000))
         // return axios
         //     .get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
-        //     .then((res) => res.data.results)
+        //     .then((res) => res.data)
     })
 
     return queryInfo.isLoading ? (
