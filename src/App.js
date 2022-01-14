@@ -1,10 +1,10 @@
-import './App.css'
-import { useQuery } from 'react-query'
-import axios from 'axios'
-import { FETCH_POKEMON_URL } from './consts'
+import "./App.css"
+import { useQuery } from "react-query"
+import axios from "axios"
+import { FETCH_POKEMON_URL } from "./consts"
 
 function App() {
-    const queryInfo = useQuery('pokemon', () =>
+    const queryInfo = useQuery("pokemon", () =>
         axios.get(FETCH_POKEMON_URL).then((res) => res.data.results)
     )
 
@@ -16,3 +16,5 @@ function App() {
         </div>
     )
 }
+
+export default App
