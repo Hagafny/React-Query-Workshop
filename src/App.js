@@ -3,7 +3,7 @@ import { useQuery } from "react-query"
 import axios from "axios"
 
 function App() {
-    const [pokemon, setPokemon] = React.useState("charizard")
+    const [pokemon, setPokemon] = React.useState("")
 
     return (
         <div>
@@ -18,14 +18,18 @@ function App() {
 }
 
 function PokemonSearch({ pokemon }) {
-    const queryInfo = useQuery("pokemon", async () => {
-        await new Promise((resolve) => setTimeout(resolve, 1000))
-        return axios
-            .get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
-            .then((res) => res.data.results)
-    })
+    const queryInfo = useQuery(
+        ["pokemon", pokemon],
+        async () => {
+            return axios
+                .get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+                .then((res) => res.data)
+        },
+        {
+            enabled: !!pokemon,
+        }
+    )
 
-    console.log(queryInfo)
     return queryInfo.isLoading ? (
         "Loading..."
     ) : queryInfo.isError ? (
