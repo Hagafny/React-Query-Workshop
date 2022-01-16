@@ -1,5 +1,5 @@
 import React from "react"
-import { useQuery } from "react-query"
+import { useQuery, useQueryClient } from "react-query"
 import axios from "axios"
 import {
     BrowserRouter as Router,
@@ -52,12 +52,23 @@ function Posts() {
 
 function Post() {
     const { postId } = useParams()
-    const postQuery = useQuery(["post", postId], async () => {
-        await new Promise((resolve) => setTimeout(resolve, 1000))
-        return axios
-            .get(`https://jsonplaceholder.typicode.com/posts/${postId}`)
-            .then((res) => res.data)
-    })
+    const queryClient = useQueryClient()
+
+    const postQuery = useQuery(
+        ["post", postId],
+        async () => {
+            await new Promise((resolve) => setTimeout(resolve, 1000))
+            return axios
+                .get(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+                .then((res) => res.data)
+        },
+        {
+            initialData: () =>
+                queryClient
+                    .getQueryData("posts")
+                    ?.find((post) => post.id == postId),
+        }
+    )
 
     return (
         <div>
