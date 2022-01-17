@@ -24,8 +24,16 @@ app.get("/api/posts", (req, res) => {
     res.status(200).json(db)
 })
 
-app.post("/api/posts", (req, res) => {
+app.post("/api/posts", async (req, res) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000))
     const { title } = req.body
+
+    if (title.toLowerCase() === "stickies") {
+        res.status(400)
+        res.json({ message: "You cant use Stickies in our posts!" })
+        return
+    }
+
     let latestId = db[db.length - 1].id
 
     const newPost = {
