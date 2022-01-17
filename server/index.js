@@ -27,11 +27,14 @@ app.get("/api/posts", (req, res) => {
 app.post("/api/posts", (req, res) => {
     const { title } = req.body
     let latestId = db[db.length - 1].id
-    db.push({
+
+    const newPost = {
         id: ++latestId,
         title,
-    })
-    res.status(200).json({ id, title })
+    }
+
+    db.push(newPost)
+    res.status(200).json(newPost)
 })
 
 app.listen(port, () => {

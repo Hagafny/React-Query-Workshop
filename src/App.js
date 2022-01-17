@@ -4,10 +4,6 @@ import axios from "axios"
 import PostForm from "./components/PostForm"
 
 function App() {
-    return <Posts />
-}
-
-export function Posts() {
     const postsQuery = useQuery("posts", () => {
         return axios.get("/api/posts").then((res) => res.data)
     })
