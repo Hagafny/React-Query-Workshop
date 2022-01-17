@@ -24,6 +24,11 @@ function PokemonSearch() {
     ) : (
         <div>
             Show the pokemon
+            {/*{queryInfo.data?.sprites?.front_default ? (*/}
+            {/*  <img src={queryInfo.data.sprites.front_default} alt="pokemon" />*/}
+            {/*) : (*/}
+            {/*  "Pokemon not found"*/}
+            {/*)}*/}
             <br />
             {queryInfo.isFetching ? "Updating..." : null}
         </div>
@@ -31,5 +36,3 @@ function PokemonSearch() {
 }
 
 export default App
-
-// <img src={queryInfo.data.sprites.front_default} alt="pokemon" />
