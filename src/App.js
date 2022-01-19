@@ -1,5 +1,5 @@
+import React from 'react'
 import axios from 'axios'
-
 const FETCH_POKEMON_URL = 'https://pokeapi.co/api/v2/pokemon'
 
 function App() {
