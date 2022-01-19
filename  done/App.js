@@ -12,8 +12,7 @@ function App() {
             return axios.get(FETCH_POKEMON_URL).then((res) => res.data.results)
         },
         {
-            refetchOnWindowFocus: false,
-            staleTime: 5000, //0 Infinity
+            staleTime: Infinity,
         }
     )
 
