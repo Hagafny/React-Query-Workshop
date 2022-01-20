@@ -9,17 +9,12 @@ function App() {
         return axios.get("/api/posts").then((res) => res.data)
     })
 
-    const createPost = useMutation(
-        (values) => {
-            return axios.post("/api/posts", values).then((res) => res.data)
+    const createPost = useMutation((post) => axios.post("/api/posts", post), {
+        onError: (error) => alert(error.response.data.message),
+        onSuccess: () => {
+            queryClient.invalidateQueries("posts")
         },
-        {
-            onError: (error) => alert(error.response.data.message),
-            onSuccess: () => {
-                queryClient.invalidateQueries("posts")
-            },
-        }
-    )
+    })
 
     console.log(createPost)
 

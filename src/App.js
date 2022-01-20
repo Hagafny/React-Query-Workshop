@@ -8,9 +8,9 @@ function App() {
         return axios.get("/api/posts").then((res) => res.data)
     })
 
-    async function createPost(post) {
+    const createPost = async (post) => {
         console.log(post)
-        // return await axios.post("/api/posts", post)
+        // await axios.post("/api/posts", post)
     }
 
     return (
