@@ -10,7 +10,7 @@ function App() {
 
     const createPost = (values) => {
         console.log("create post", values)
-        // axios.post("/api/posts", values).then((res) => res.data)
+        // await axios.post("/api/posts", values)
     }
 
     return (
