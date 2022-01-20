@@ -66,7 +66,7 @@ function Post() {
             initialData: () =>
                 queryClient
                     .getQueryData("posts")
-                    ?.find((post) => post.id == postId),
+                    ?.find((post) => post.id === postId),
         }
     )
 
