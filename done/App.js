@@ -15,17 +15,26 @@ function App() {
                 onChange={changePokemonInput}
             />
             <br />
-            <PokemonSearch />
+            <PokemonSearch pokemon={pokemon} />
         </>
     )
 }
 
-function PokemonSearch() {
-    const queryInfo = useQuery("pokemon", async () => {
-        // return axios
-        //     .get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
-        //     .then((res) => res.data)
-    })
+function PokemonSearch({ pokemon }) {
+    const queryInfo = useQuery(
+        ["pokemon", pokemon],
+        async () => {
+            return axios
+                .get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+                .then((res) => res.data)
+        },
+        {
+            enabled: !!pokemon,
+            retry: 1, //0
+            retryDelay: (attemptedIndex) =>
+                Math.min(1000 * 2 ** attemptedIndex, 30000), // 1000
+        }
+    )
 
     return queryInfo.isLoading ? (
         "Loading..."
@@ -33,13 +42,13 @@ function PokemonSearch() {
         queryInfo.error.message
     ) : (
         <div>
-            {/*{queryInfo.data?.sprites?.front_default ? (*/}
-            {/*    <img src={queryInfo.data.sprites.front_default} alt="pokemon" />*/}
-            {/*) : (*/}
-            {/*    "Pokemon not found"*/}
-            {/*)}*/}
-            {/*/!*<br />*!/*/}
-            {/*{queryInfo.isFetching ? "Updating..." : null}*/}
+            {queryInfo.data?.sprites?.front_default ? (
+                <img src={queryInfo.data.sprites.front_default} alt="pokemon" />
+            ) : (
+                "Pokemon not found"
+            )}
+            {/*<br />*/}
+            {queryInfo.isFetching ? "Updating..." : null}
         </div>
     )
 }
