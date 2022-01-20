@@ -15,12 +15,12 @@ function App() {
                 onChange={changePokemonInput}
             />
             <br />
-            <PokemonSearch pokemon={pokemon} />
+            <PokemonSearch />
         </>
     )
 }
 
-function PokemonSearch({ pokemon }) {
+function PokemonSearch() {
     const queryInfo = useQuery("pokemon", async () => {
         // return axios
         //     .get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
