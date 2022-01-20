@@ -1,5 +1,5 @@
 import React from "react"
-import { useQuery } from "react-query"
+import { useQuery, useQueryClient } from "react-query"
 import axios from "axios"
 import {
     BrowserRouter as Router,
@@ -8,6 +8,7 @@ import {
     Link,
     useParams,
 } from "react-router-dom"
+import { sleep } from "./utils"
 
 function App() {
     return (
@@ -22,7 +23,7 @@ function App() {
 
 function Posts() {
     const postsQuery = useQuery("posts", async () => {
-        await new Promise((resolve) => setTimeout(resolve, 1000))
+        await sleep(1000)
         return axios
             .get("https://jsonplaceholder.typicode.com/posts")
             .then((res) => res.data)
@@ -52,12 +53,22 @@ function Posts() {
 
 function Post() {
     const { postId } = useParams()
-    const postQuery = useQuery(["post", postId], async () => {
-        await new Promise((resolve) => setTimeout(resolve, 1000))
-        return axios
-            .get(`https://jsonplaceholder.typicode.com/posts/${postId}`)
-            .then((res) => res.data)
-    })
+    const queryClient = useQueryClient()
+    const postQuery = useQuery(
+        ["post", postId],
+        async () => {
+            await new Promise((resolve) => setTimeout(resolve, 1000))
+            return axios
+                .get(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+                .then((res) => res.data)
+        },
+        {
+            initialData: () =>
+                queryClient
+                    .getQueryData("posts")
+                    ?.find((post) => post.id == postId),
+        }
+    )
 
     return (
         <div>
