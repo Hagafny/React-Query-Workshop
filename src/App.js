@@ -23,14 +23,15 @@ function PokemonSearch() {
         queryInfo.error.message
     ) : (
         <div>
-            Show the pokemon
-            {/*{queryInfo.data?.sprites?.front_default ? (*/}
-            {/*  <img src={queryInfo.data.sprites.front_default} alt="pokemon" />*/}
-            {/*) : (*/}
-            {/*  "Pokemon not found"*/}
-            {/*)}*/}
+            <input type="text" placeholder="search pokemon..." />
             <br />
-            {queryInfo.isFetching ? "Updating..." : null}
+            {/*{queryInfo.data?.sprites?.front_default ? (*/}
+            {/*    <img src={queryInfo.data.sprites.front_default} alt="pokemon" />*/}
+            {/*) : (*/}
+            {/*    "Pokemon not found"*/}
+            {/*)}*/}
+            {/*<br />*/}
+            {/*{queryInfo.isFetching ? "Updating..." : null}*/}
         </div>
     )
 }
