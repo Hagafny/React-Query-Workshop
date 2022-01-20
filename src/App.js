@@ -3,14 +3,6 @@ import { useQuery } from "react-query"
 import axios from "axios"
 
 function App() {
-    return (
-        <div>
-            <PokemonSearch />
-        </div>
-    )
-}
-
-function PokemonSearch() {
     const queryInfo = useQuery("pokemon", async () => {
         // return axios
         //     .get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
