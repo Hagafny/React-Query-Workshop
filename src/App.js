@@ -10,7 +10,7 @@ function App() {
 
     function createPost(post) {
         console.log(post)
-        //   return axios.post("/api/posts", post).then((res) => res.data)
+        // return axios.post("/api/posts", post).then((res) => res.data)
     }
 
     return (
@@ -45,15 +45,7 @@ function App() {
                     <PostForm
                         onSubmit={createPost}
                         clearOnSubmit
-                        submitText={
-                            createPost.isLoading
-                                ? "Loading..."
-                                : createPost.isError
-                                ? "Error..."
-                                : createPost.isSuccess
-                                ? "Saved!"
-                                : "Create Post"
-                        }
+                        submitText="Create Post"
                     />
                 </div>
             </div>
