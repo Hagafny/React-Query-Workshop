@@ -9,13 +9,16 @@ function App() {
         return axios.get("/api/posts").then((res) => res.data)
     })
 
-    const createPost = useMutation((post) => axios.post("/api/posts", post), {
-        onSuccess: () => {
-            queryClient.invalidateQueries("posts")
-        },
-    })
+    const createPostMutation = useMutation(
+        (post) => axios.post("/api/posts", post),
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries("posts")
+            },
+        }
+    )
 
-    console.log(createPost)
+    console.log(createPostMutation)
 
     return (
         <section>
@@ -47,20 +50,22 @@ function App() {
                 <h3>Create new Post</h3>
                 <div>
                     <PostForm
-                        onSubmit={createPost.mutate}
+                        onSubmit={createPostMutation.mutate}
                         clearOnSubmit
                         submitText={
-                            createPost.isLoading
+                            createPostMutation.isLoading
                                 ? "Loading..."
-                                : createPost.isError
+                                : createPostMutation.isError
                                 ? "Error..."
-                                : createPost.isSuccess
+                                : createPostMutation.isSuccess
                                 ? "Saved!"
                                 : "Create Post"
                         }
                     />
-                    {createPost.isError ? (
-                        <pre>{createPost.error.response.data.message}</pre>
+                    {createPostMutation.isError ? (
+                        <pre>
+                            {createPostMutation.error.response.data.message}
+                        </pre>
                     ) : null}
                 </div>
             </div>
