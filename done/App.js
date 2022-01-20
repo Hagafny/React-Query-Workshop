@@ -9,15 +9,19 @@ function App() {
         return axios.get("/api/posts").then((res) => res.data)
     })
 
-    const createPostMutation = useMutation(
-        (newValues) => {
-            return axios.post("/api/posts", newValues)
+    const createPost = useMutation(
+        (values) => {
+            return axios.post("/api/posts", values).then((res) => res.data)
         },
         {
             onError: (error) => alert(error.response.data.message),
-            onSettled: () => queryClient.invalidateQueries("posts"),
+            onSuccess: () => {
+                queryClient.invalidateQueries("posts")
+            },
         }
     )
+
+    console.log(createPost)
 
     return (
         <section>
@@ -38,7 +42,6 @@ function App() {
                                     <li key={post.id}>{post.title}</li>
                                 ))}
                             </ul>
-                            <br />
                         </>
                     )}
                 </div>
@@ -50,22 +53,22 @@ function App() {
                 <h3>Create new Post</h3>
                 <div>
                     <PostForm
-                        onSubmit={createPostMutation.mutate}
+                        onSubmit={createPost.mutate}
                         clearOnSubmit
                         submitText={
-                            createPostMutation.isLoading
+                            createPost.isLoading
                                 ? "Loading..."
-                                : createPostMutation.isError
-                                ? "Error!"
-                                : createPostMutation.isSuccess
+                                : createPost.isError
+                                ? "Error..."
+                                : createPost.isSuccess
                                 ? "Saved!"
                                 : "Create Post"
                         }
                     />
+                    {createPost.isError ? (
+                        <pre>{createPost.error.response.data.message}</pre>
+                    ) : null}
                 </div>
-                {createPostMutation.isError ? (
-                    <pre>{createPostMutation.error.response.data.message}</pre>
-                ) : null}
             </div>
         </section>
     )

@@ -8,9 +8,9 @@ function App() {
         return axios.get("/api/posts").then((res) => res.data)
     })
 
-    const createPost = (values) => {
-        console.log("create post", values)
-        // await axios.post("/api/posts", values)
+    function createPost(post) {
+        console.log(post)
+        //   return axios.post("/api/posts", post).then((res) => res.data)
     }
 
     return (
@@ -32,7 +32,6 @@ function App() {
                                     <li key={post.id}>{post.title}</li>
                                 ))}
                             </ul>
-                            <br />
                         </>
                     )}
                 </div>
@@ -46,7 +45,15 @@ function App() {
                     <PostForm
                         onSubmit={createPost}
                         clearOnSubmit
-                        submitText="Create Post"
+                        submitText={
+                            createPost.isLoading
+                                ? "Loading..."
+                                : createPost.isError
+                                ? "Error..."
+                                : createPost.isSuccess
+                                ? "Saved!"
+                                : "Create Post"
+                        }
                     />
                 </div>
             </div>
